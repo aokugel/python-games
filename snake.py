@@ -31,8 +31,8 @@ def message(msg, color, x, y):
 class Snake:
     def __init__(self, body):
         self.body = body
-        self.x = x
-        self.y = y
+        self.x = body[0][0]
+        self.y = body[0][1]
         self.size = SNAKEBLOCK
         self.xDelta = 0
         self.yDelta = 0
@@ -90,8 +90,8 @@ while run:
         if snake.yDelta != -(vel):
             snake.xDelta = 0
             snake.yDelta = vel
-    x += snake.xDelta
-    y += snake.yDelta
+    snake.x += snake.xDelta
+    snake.y += snake.yDelta
 
     if x > GAME_WIDTH or x < 0 or y > GAME_HEIGHT or y < 0:
         lost = True
@@ -103,12 +103,12 @@ while run:
         run = False
         break
 
-    if food.location_x == x and food.location_y == y:
+    if food.location_x == snake.x and food.location_y == snake.y:
         food.newfood()
         score += 5
-        snake.grow(x, y)
+        snake.grow(snake.x, snake.y)
 
-    snake.slither(x, y)
+    snake.slither(snake.x, snake.y)
 
     win.fill((0,0,0))
     snake.draw()
