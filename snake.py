@@ -11,18 +11,12 @@ SNAKEBLOCK = 20
 
 win = pygame.display.set_mode((GAME_WIDTH,GAME_HEIGHT))
 pygame.display.set_caption("Anthony Kugel Snake Game")
-x = 40
-y = 40 
-vel = 20
+
 clock = pygame.time.Clock()
 run = True
 font = pygame.font.SysFont(None, 30)
 lost = False
-xDelta = 0
-yDelta = 0
 score = 0
-
-
 
 def message(msg, color, x, y):
     mesg = font.render(msg, True, color)
@@ -36,7 +30,6 @@ class Snake:
         self.size = SNAKEBLOCK
         self.xDelta = 0
         self.yDelta = 0
-
     def draw(self):
         for x in self.body:
             pygame.draw.rect(win, SNAKECOLOR, [x[0], x[1], self.size, self.size])
@@ -75,30 +68,30 @@ while run:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
-        if snake.xDelta != vel:
-            snake.xDelta = -(vel)
+        if snake.xDelta != SNAKEBLOCK:
+            snake.xDelta = -(SNAKEBLOCK)
             snake.yDelta = 0
     if keys[pygame.K_RIGHT]:
-        if snake.xDelta != -(vel):
-            snake.xDelta = vel
+        if snake.xDelta != -(SNAKEBLOCK):
+            snake.xDelta = SNAKEBLOCK
             snake.yDelta = 0
     if keys[pygame.K_UP]:
-        if snake.yDelta != vel:
+        if snake.yDelta != SNAKEBLOCK:
             snake.xDelta = 0
-            snake.yDelta = -(vel)
+            snake.yDelta = -(SNAKEBLOCK)
     if keys[pygame.K_DOWN]:
-        if snake.yDelta != -(vel):
+        if snake.yDelta != -(SNAKEBLOCK):
             snake.xDelta = 0
-            snake.yDelta = vel
+            snake.yDelta = SNAKEBLOCK
     snake.x += snake.xDelta
     snake.y += snake.yDelta
 
-    if x > GAME_WIDTH or x < 0 or y > GAME_HEIGHT or y < 0:
+    if snake.x > GAME_WIDTH or snake.x < 0 or snake.y > GAME_HEIGHT or snake.y < 0:
         lost = True
         run = False
         break
 
-    if snake.body[0] in snake.body[1:] and score > 0:
+    if snake.body[0] in snake.body[1:] and score > 5:
         lost = True
         run = False
         break
