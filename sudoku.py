@@ -45,7 +45,7 @@ class Sudoku:
         else:
             return True
 
-print("Enter your sudoku board as a two dimensional lists:")
+print("Enter your sudoku.  Numbers should be seperated by spaces")
 
 board = []
 while True:
